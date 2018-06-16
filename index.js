@@ -4,7 +4,6 @@ var socket = require('socket.io-client')('http://localhost:8080');
 socket.token = null;
 const deviceName = process.env.DEVICE_NAME;
 const password = process.env.DEVICE_PASSWORD;
-console.log(deviceName,password);
 
 socket.on('connect', function(){
     console.log("connected on client");
@@ -18,7 +17,7 @@ socket.on('event', function(data){
 socket.on('login.success', function(data) {
     socket.token = data.token;
     // socket.emit('getDevice', {token:socket.token,deviceName}, {deviceName});
-    socket.emit("message",{token:socket.token,deviceName,message:"test"})
+    // socket.emit("message",{token:socket.token,deviceName,message:"test"})
 })
 
 socket.on('user.success', function(data) {
@@ -37,8 +36,14 @@ socket.on("message", function(data){
     console.log("got message", data)
 })
 
-socket.on("cloud-message", function(data){
-    console.log("got cloud message", data)
+socket.on("cloud-message-temperature", function(data, ack){
+    console.log("REQUEST CM Temperature", data)
+    ack({temperature: "40"});
+})
+
+socket.on("cloud-message-humidity", function(data, ack){
+    console.log("REQUEST CM Humidity", data)
+    ack({humidity: "20"});
 })
 socket.on('disconnect', function(){});
 
