@@ -1,9 +1,12 @@
-var socket = require('socket.io-client')('http://localhost:8080');
-// const access_data = require('./access_credentials.json');
-// console.log(access_data["username"], access_data["password"]);
+var socket = require('socket.io-client')('http://192.168.1.102:8080');
+const access_data = require('./access_credentials.json');
+console.log(access_data["username"], access_data["password"]);
 socket.token = null;
-const deviceName = process.env.DEVICE_NAME;
-const password = process.env.DEVICE_PASSWORD;
+const deviceName =access_data["username"];
+const password = access_data["password"];
+const sensor = require('node-dht-sensor');
+
+
 
 socket.on('connect', function(){
     console.log("connected on client");
@@ -38,12 +41,32 @@ socket.on("message", function(data){
 
 socket.on("cloud-message-temperature", function(data, ack){
     console.log("REQUEST CM Temperature", data)
-    ack({temperature: "40"});
+    sensor.read(11, 4, function(err, temperature, humidity) {
+        if (!err) {
+            ack({temperature: temperature.toFixed(1)});
+            console.log('temp: ' + temperature.toFixed(1) + '°C, ' +
+                'humidity: ' + humidity.toFixed(1) + '%'
+            );
+        }
+        else {
+            console.log(err);
+        }
+    });
+   
 })
 
 socket.on("cloud-message-humidity", function(data, ack){
-    console.log("REQUEST CM Humidity", data)
-    ack({humidity: "20"});
+    sensor.read(11, 4, function(err, temperature, humidity) {
+        if (!err) {
+            ack({humidity: humidity.toFixed(1)});
+            console.log('temp: ' + temperature.toFixed(1) + '°C, ' +
+                'humidity: ' + humidity.toFixed(1) + '%'
+            );
+        }
+        else {
+            console.log(err);
+        }
+    });
 })
 socket.on('disconnect', function(){});
 
