@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "cl1": "SET DEVICE_NAME=atalin&& SET DEVICE_PASSWORD=test12&& nodemon index.js",
+    "cl1": "SET DEVICE_NAME=talin&& SET DEVICE_PASSWORD=test12&& nodemon index.js",
     "cl2": "SET DEVICE_NAME=talins&& SET DEVICE_PASSWORD=test12&& nodemon index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
