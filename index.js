@@ -17,7 +17,8 @@ socket.on('event', function(data){
 
 socket.on('login.success', function(data) {
     socket.token = data.token;
-    socket.emit('getDevice', {token:socket.token,deviceName}, {deviceName});
+    // socket.emit('getDevice', {token:socket.token,deviceName}, {deviceName});
+    socket.emit("message",{token:socket.token,deviceName,message:"test"})
 })
 
 socket.on('user.success', function(data) {
@@ -34,6 +35,10 @@ socket.on('error.messages', function(data){
 })
 socket.on("message", function(data){
     console.log("got message", data)
+})
+
+socket.on("cloud-message", function(data){
+    console.log("got cloud message", data)
 })
 socket.on('disconnect', function(){});
 
