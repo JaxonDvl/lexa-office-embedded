@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "tplink-smarthome-api": "^0.22.0"
+    "tplink-smarthome-api": "^0.22.0",
+    "socket.io-client": "^2.1.1"
   }
 }
