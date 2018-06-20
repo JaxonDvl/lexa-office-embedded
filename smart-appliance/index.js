@@ -1,4 +1,6 @@
-var socket = require('socket.io-client')('http://localhost:8080');
+const serverConfig = require('./constants');
+
+var socket = require('socket.io-client')(serverConfig.serverUrl);
 const access_data = require('./access_credentials.json');
 console.log(access_data["username"], access_data["password"]);
 socket.token = null;
