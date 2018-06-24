@@ -21,7 +21,7 @@ socket.on('login.success', function(data) {
 
 socket.on('update-bulb', function(updateState,ack) {
     console.log(updateState.data);
-    const bulb = client.getDevice({host:'192.168.1.101'})
+    const bulb = client.getDevice({host:'192.168.1.104'})
     .then((device)=>{
         // device.getSysInfo().then(console.log);
         device.lighting.setLightState({ 
